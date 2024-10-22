@@ -9,7 +9,7 @@ Nuestro proyecto tiene como objetivo desarrollar un sistema de recomendación de
 
 El sistema de recomendación se enfoca en utilizar la información del género de los libros y las valoraciones de los usuarios para predecir una lista de libros que podrían gustarles. Los usuarios reciben una recomendación de libros con una calificación estimada del 1 al 5, en función de la similitud con otros libros que ya han leído o valorado. 
 
-Este proyecto es parte de nuestro Capstone de fin de curso, y hemos decidido implementarlo porque ofrece una solución práctica para la recomendación personalizada de libros, lo cual es especialmente relevante para plataformas de intercambio de libros o redes sociales enfocadas en la lectura.
+Este proyecto nos ayudará con nuestro proyecto Capstone de fin de curso, y hemos decidido implementarlo porque ofrece una solución práctica para la recomendación personalizada de libros, lo cual es especialmente relevante para nuestra plataforma.
 
 ## Datasets Utilizados
 
@@ -39,3 +39,19 @@ Este dataset incluye reseñas de los clientes sobre varios libros, con los sigui
 
 En primer lugar, hemos unificado los dos dataframes de las reviews de los usuarios con los libros en una sola tabla guardada en /data como "datos.csv"
 
+- **rank**: Clasificación de popularidad del libro.
+- **book_title**: Título del libro.
+- **book_price**: Precio del libro.
+- **rating**: Valoración promedio del libro.
+- **author**: Autor del libro.
+- **year_of_publication**: Año de publicación del libro.
+- **genre**: Género literario del libro.
+- **url**: Enlace al libro.
+- **book_name**: Nombre del libro que ha sido reseñado.
+- **review_title**: Título de la reseña.
+- **reviewer**: Nombre del usuario que hizo la reseña.
+- **reviewer_rating**: Calificación del usuario para el libro (de 1 a 5 estrellas).
+- **review_description**: Descripción de la reseña del cliente.
+- **is_verified**: Indica si la reseña es de una compra verificada.
+- **date**: Fecha de la reseña.
+- **asin**: Identificador único del libro en Amazon.
