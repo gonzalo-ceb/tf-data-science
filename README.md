@@ -39,6 +39,41 @@ Incluye reseñas de los clientes sobre varios libros, con los siguientes campos:
 
 Estos datasets se combinan en una sola tabla guardada como "datos.csv" en la carpeta `/data`, la cual permite un análisis exhaustivo que integra la información de ambos.
 
+## Requisitos
+
+- [Docker](https://docs.docker.com/get-docker/) instalado en tu sistema.
+- Archivo `train.csv` con las calificaciones de usuarios, ubicado en el mismo directorio que el archivo `app.py`.
+
+## Instalación y Ejecución
+
+### Paso 1: Clona este repositorio
+`git clone https://github.com/gonzalo-ceb/tf-data-science.git`
+
+`cd notebooks`
+
+
+### Paso 2: Ubica los archivos
+Asegúrate de que el archivo `Dockerfile` esté ubicado en: `tf-data-science\notebooks\Dockerfile`
+
+
+### Paso 3: Construye la imagen de Docker
+Abre una terminal y navega al directorio que contiene el Dockerfile. Luego, ejecuta: `docker build --no-cache -t recomendador-libros`.
+
+### Paso 4: Ejecuta el contenedor:
+`docker run -p 7860:7860 recomendador-libros`.
+
+### Paso 5: Accede a la aplicación:
+Una vez que el contenedor esté en ejecución, abre tu navegador y ve a http://localhost:7860 para acceder a la interfaz.
+
+
+## Uso
+1. En el campo "Nombre del Usuario", ingresa el nombre de un usuario registrado en el sistema.
+2. Haz clic en Submit para recibir las recomendaciones de libros para ese usuario.
+3. Las recomendaciones aparecerán en el cuadro "Libros Recomendados".
+
+## Nota
+Asegúrate de que Docker esté en ejecución antes de construir y ejecutar el contenedor. Si necesitas realizar cambios en app.py, asegúrate de construir la imagen nuevamente para que Docker cargue los cambios actualizados.
+
 ## Pasos de Procesamiento de Datos
 
 ### Paso 1: Unificación de Datos
@@ -68,4 +103,3 @@ Para obtener recomendaciones personalizadas, se utiliza la función `recomendaci
 usuario_ejemplo = "A H Kobayashi"
 recomendaciones_usuario = recomendaciones_hibridas(usuario_ejemplo, peso_similitud=0.8)
 print(recomendaciones_usuario)
-
