@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse.linalg import svds
 
 # Cargar los datos
-train = pd.read_csv('data/train.csv')
+train = pd.read_csv('models/train.csv')
 
 # Funciones de procesamiento y recomendación
 def preparar_matriz_usuario_libro(train):

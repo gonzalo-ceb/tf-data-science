@@ -60,15 +60,6 @@ Para el sistema de recomendación, se implementa una técnica híbrida combinand
 
 3. **Ponderación Híbrida**: Se desarrolla una función de recomendaciones híbridas, que combina la predicción de calificación de SVD con la similitud entre libros para generar recomendaciones personalizadas, controlando el peso de cada componente (calificación estimada y similitud).
 
-### Ejemplo de Uso de la Función de Recomendación
-Para obtener recomendaciones personalizadas, se utiliza la función `recomendaciones_hibridas` proporcionando un `usuario_id` y configurando el peso de similitud para personalizar los resultados.
-
-```python
-# Ejemplo para el usuario "A H Kobayashi"
-usuario_ejemplo = "A H Kobayashi"
-recomendaciones_usuario = recomendaciones_hibridas(usuario_ejemplo, peso_similitud=0.8)
-print(recomendaciones_usuario)´´´
-
 ## Requisitos
 
 - [Docker](https://docs.docker.com/get-docker/) instalado en tu sistema.
@@ -83,11 +74,11 @@ print(recomendaciones_usuario)´´´
 
 
 ### Paso 2: Ubica los archivos
-Asegúrate de que el archivo `Dockerfile` esté ubicado en: `tf-data-science\notebooks\Dockerfile`
+Asegúrate de que el archivo `Dockerfile` esté ubicado en: `tf-data-science\app`
 
 
 ### Paso 3: Construye la imagen de Docker
-Abre una terminal y navega al directorio que contiene el Dockerfile. Luego, ejecuta: `docker build --no-cache -t recomendador-libros`.
+Abre una terminal y navega a `tf-data-science`. Luego, ejecuta: `docker build --no-cache -t recomendador-libros ./app`.
 
 ### Paso 4: Ejecuta el contenedor:
 `docker run -p 7860:7860 recomendador-libros`.
