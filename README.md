@@ -39,6 +39,36 @@ Incluye reseñas de los clientes sobre varios libros, con los siguientes campos:
 
 Estos datasets se combinan en una sola tabla guardada como "datos.csv" en la carpeta `/data`, la cual permite un análisis exhaustivo que integra la información de ambos.
 
+## Pasos de Procesamiento de Datos
+
+### Paso 1: Unificación de Datos
+Inicialmente, unimos ambos datasets (`Top-100 Trending Books` y `Customer Reviews`) en un solo DataFrame llamado `datos.csv`. Este archivo consolidado incluye todos los campos necesarios para el análisis y para construir la matriz de calificación de usuario y libro.
+
+### Paso 2: Preprocesamiento de Datos
+En el archivo `2_procesamiento.ipynb`, llevamos a cabo el preprocesamiento, que incluye:
+
+- **Limpieza de Datos**: Se eliminan columnas no necesarias para la predicción, tales como `rank`, `url`, `timestamp`, y `asin`.
+- **Expansión de Géneros**: Los géneros de los libros se dividen y se transforman en variables dummy.
+- **Vectorización de Textos**: Se utilizan técnicas de TF-IDF para vectorizar títulos y descripciones de reseñas, convirtiéndolos en matrices de características que luego se integran al DataFrame de entrenamiento (`train.csv`).
+
+### Paso 3: Construcción del Algoritmo de Recomendación
+Para el sistema de recomendación, se implementa una técnica híbrida combinando:
+
+1. **Descomposición en Valores Singulares (SVD)**: Para la creación de una matriz de calificación de usuario-libro, donde la calificación estimada para un libro no leído se calcula usando SVD y se pondera en una escala de 0 a 5.
+  
+2. **Similitud de Coseno**: La similitud de coseno se calcula entre libros, usando atributos como géneros y palabras clave de las reseñas, para hallar títulos similares a los preferidos por el usuario. 
+
+3. **Ponderación Híbrida**: Se desarrolla una función de recomendaciones híbridas, que combina la predicción de calificación de SVD con la similitud entre libros para generar recomendaciones personalizadas, controlando el peso de cada componente (calificación estimada y similitud).
+
+### Ejemplo de Uso de la Función de Recomendación
+Para obtener recomendaciones personalizadas, se utiliza la función `recomendaciones_hibridas` proporcionando un `usuario_id` y configurando el peso de similitud para personalizar los resultados.
+
+```python
+# Ejemplo para el usuario "A H Kobayashi"
+usuario_ejemplo = "A H Kobayashi"
+recomendaciones_usuario = recomendaciones_hibridas(usuario_ejemplo, peso_similitud=0.8)
+print(recomendaciones_usuario)´´´
+
 ## Requisitos
 
 - [Docker](https://docs.docker.com/get-docker/) instalado en tu sistema.
@@ -73,33 +103,3 @@ Una vez que el contenedor esté en ejecución, abre tu navegador y ve a http://l
 
 ## Nota
 Asegúrate de que Docker esté en ejecución antes de construir y ejecutar el contenedor. Si necesitas realizar cambios en app.py, asegúrate de construir la imagen nuevamente para que Docker cargue los cambios actualizados.
-
-## Pasos de Procesamiento de Datos
-
-### Paso 1: Unificación de Datos
-Inicialmente, unimos ambos datasets (`Top-100 Trending Books` y `Customer Reviews`) en un solo DataFrame llamado `datos.csv`. Este archivo consolidado incluye todos los campos necesarios para el análisis y para construir la matriz de calificación de usuario y libro.
-
-### Paso 2: Preprocesamiento de Datos
-En el archivo `2_procesamiento.ipynb`, llevamos a cabo el preprocesamiento, que incluye:
-
-- **Limpieza de Datos**: Se eliminan columnas no necesarias para la predicción, tales como `rank`, `url`, `timestamp`, y `asin`.
-- **Expansión de Géneros**: Los géneros de los libros se dividen y se transforman en variables dummy.
-- **Vectorización de Textos**: Se utilizan técnicas de TF-IDF para vectorizar títulos y descripciones de reseñas, convirtiéndolos en matrices de características que luego se integran al DataFrame de entrenamiento (`train.csv`).
-
-### Paso 3: Construcción del Algoritmo de Recomendación
-Para el sistema de recomendación, se implementa una técnica híbrida combinando:
-
-1. **Descomposición en Valores Singulares (SVD)**: Para la creación de una matriz de calificación de usuario-libro, donde la calificación estimada para un libro no leído se calcula usando SVD y se pondera en una escala de 0 a 5.
-  
-2. **Similitud de Coseno**: La similitud de coseno se calcula entre libros, usando atributos como géneros y palabras clave de las reseñas, para hallar títulos similares a los preferidos por el usuario. 
-
-3. **Ponderación Híbrida**: Se desarrolla una función de recomendaciones híbridas, que combina la predicción de calificación de SVD con la similitud entre libros para generar recomendaciones personalizadas, controlando el peso de cada componente (calificación estimada y similitud).
-
-### Ejemplo de Uso de la Función de Recomendación
-Para obtener recomendaciones personalizadas, se utiliza la función `recomendaciones_hibridas` proporcionando un `usuario_id` y configurando el peso de similitud para personalizar los resultados.
-
-```python
-# Ejemplo para el usuario "A H Kobayashi"
-usuario_ejemplo = "A H Kobayashi"
-recomendaciones_usuario = recomendaciones_hibridas(usuario_ejemplo, peso_similitud=0.8)
-print(recomendaciones_usuario)
